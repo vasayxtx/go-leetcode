@@ -1,35 +1,31 @@
 package longestsubstring
 
+func maxInt(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
 func lengthOfLongestSubstring(s string) int {
 	positions := make([]int, 255)
 	for i := 0; i < len(positions); i++ {
 		positions[i] = -1
 	}
 
+	i := 0
+	j := 0
 	res := 0
-	curLen := 0
-	for i := 0; i < len(s); i++ {
-		char := s[i]
+	for i < len(s) && j < len(s) {
+		char := s[j]
 		oldPos := positions[char]
-		if oldPos != -1 {
-			if curLen > res {
-				res = curLen
-			}
-			for j := 0; j < len(positions); j++ {
-				if positions[j] >= 0 && positions[j] <= oldPos {
-					positions[j] = -1
-					curLen -= 1
-				}
-			}
+		positions[char] = j
+		j += 1
+		if i > oldPos {
+			res = maxInt(res, j-i)
+		} else {
+			i = oldPos + 1
 		}
-
-		positions[char] = i
-		curLen += 1
 	}
-
-	if curLen > res {
-		res = curLen
-	}
-
 	return res
 }

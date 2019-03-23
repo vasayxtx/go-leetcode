@@ -18,4 +18,6 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 	test(t, "abcabcbb", 3)
 	test(t, "pwwkew", 3)
 	test(t, "abaab", 2)
+	test(t, "aab", 2)
+
 }
