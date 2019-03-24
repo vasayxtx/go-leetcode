@@ -1,4 +1,4 @@
-package validparentheses
+package problem20
 
 // https://leetcode.com/problems/valid-parentheses/
 

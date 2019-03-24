@@ -1,4 +1,4 @@
-package lrucache
+package problem146
 
 import "testing"
 

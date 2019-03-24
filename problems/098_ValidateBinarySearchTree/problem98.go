@@ -1,4 +1,4 @@
-package bst
+package problem98
 
 type TreeNode struct {
 	Val   int

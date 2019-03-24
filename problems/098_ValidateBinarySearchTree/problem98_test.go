@@ -1,4 +1,4 @@
-package bst
+package problem98
 
 import "testing"
 

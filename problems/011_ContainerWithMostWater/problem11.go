@@ -1,4 +1,4 @@
-package containerwithmostwater
+package problem11
 
 func min(a, b int) int {
 	if a > b {

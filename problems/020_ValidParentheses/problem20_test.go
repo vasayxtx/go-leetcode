@@ -1,10 +1,10 @@
-package validparentheses
+package problem20
 
 import (
 	"testing"
 )
 
-func assertTrue(t *testing.T, actRes bool, errMsg string)  {
+func assertTrue(t *testing.T, actRes bool, errMsg string) {
 	if actRes != true {
 		t.Error(errMsg)
 	}

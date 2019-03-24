@@ -1,4 +1,4 @@
-package longestsubstring
+package problem3
 
 import "testing"
 

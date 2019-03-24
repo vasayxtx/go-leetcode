@@ -1,4 +1,4 @@
-package containerwithmostwater
+package problem11
 
 import "testing"
 
