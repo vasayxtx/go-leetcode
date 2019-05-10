@@ -1,21 +1,57 @@
 package problem20
 
-import (
-	"testing"
-)
+import "testing"
 
-func assertTrue(t *testing.T, actRes bool, errMsg string) {
-	if actRes != true {
-		t.Error(errMsg)
+func Test_isValid(t *testing.T) {
+	type args struct {
+		s string
 	}
-}
-
-func TestIsValid(t *testing.T) {
-	assertTrue(t, isValid(""), "Empty string should be valid.")
-	assertTrue(t, !isValid("("), `"(" should be invalid`)
-	assertTrue(t, !isValid(")"), `"(" should be invalid`)
-	assertTrue(t, isValid("()"), `"(" should be valid`)
-	assertTrue(t, isValid("()[]{}"), `"()[]{}" should be valid`)
-	assertTrue(t, isValid("([{}])"), `"([{}]) should be valid`)
-	assertTrue(t, !isValid("([)])"), `"([)])" should be invalid`)
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Test #1",
+			args: args{""},
+			want: true,
+		},
+		{
+			name: "Test #2",
+			args: args{"("},
+			want: false,
+		},
+		{
+			name: "Test #3",
+			args: args{")"},
+			want: false,
+		},
+		{
+			name: "Test #4",
+			args: args{"()"},
+			want: true,
+		},
+		{
+			name: "Test #5",
+			args: args{"()[]{}"},
+			want: true,
+		},
+		{
+			name: "Test #6",
+			args: args{"([{}])"},
+			want: true,
+		},
+		{
+			name: "Test #7",
+			args: args{"([)])"},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isValid(tt.args.s); got != tt.want {
+				t.Errorf("isValid() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }

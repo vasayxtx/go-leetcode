@@ -2,21 +2,45 @@ package problem139
 
 import "testing"
 
-func test(t *testing.T, s string, wordDict []string, expRes bool) {
-	actRes := wordBreak(s, wordDict)
-	if actRes != expRes {
-		t.Errorf("fail for %q, expected %v, actual %v", s, expRes, actRes)
+func Test_wordBreak(t *testing.T) {
+	type args struct {
+		s        string
+		wordDict []string
 	}
-}
-
-func TestWordBreak(t *testing.T) {
-	test(t, "leetcode", []string{"leet", "code"}, true)
-	test(t, "applepenapple", []string{"apple", "pen"}, true)
-	test(t, "catsandog", []string{"cats", "dog", "sand", "and", "cat"}, false)
-	test(
-		t,
-		"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab",
-		[]string{"a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa"},
-		false,
-	)
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Test #1",
+			args: args{"leetcode", []string{"leet", "code"}},
+			want: true,
+		},
+		{
+			name: "Test #2",
+			args: args{"applepenapple", []string{"apple", "pen"}},
+			want: true,
+		},
+		{
+			name: "Test #3",
+			args: args{"catsandog", []string{"cats", "dog", "sand", "and", "cat"}},
+			want: false,
+		},
+		{
+			name: "Test #4",
+			args: args{
+				"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab",
+				[]string{"a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa"},
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := wordBreak(tt.args.s, tt.args.wordDict); got != tt.want {
+				t.Errorf("wordBreak() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }

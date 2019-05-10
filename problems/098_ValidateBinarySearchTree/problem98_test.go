@@ -2,71 +2,72 @@ package problem98
 
 import "testing"
 
-func TestIsValidBST(t *testing.T) {
-	var tree0 *TreeNode
-	if isValidBST(tree0) != true {
-		t.Errorf("#0: expected true, got false")
+func Test_isValidBST(t *testing.T) {
+	type args struct {
+		node *TreeNode
 	}
-
-	tree1 := &TreeNode{
-		Val: 1,
-	}
-	if isValidBST(tree1) != true {
-		t.Errorf("#1: expected true, got false")
-	}
-
-	tree2 := &TreeNode{
-		Val: 2,
-		Left: &TreeNode{
-			Val: 1,
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Test #1",
+			args: args{},
+			want: true,
 		},
-		Right: &TreeNode{
-			Val: 3,
+		{
+			name: "Test #2",
+			args: args{&TreeNode{Val: 1}},
+			want: true,
 		},
-	}
-	if isValidBST(tree2) != true {
-		t.Errorf("#2: expected true, got false")
-	}
-
-	tree3 := &TreeNode{
-		Val: 1,
-		Left: &TreeNode{
-			Val: 1,
+		{
+			name: "Test #3",
+			args: args{&TreeNode{
+				Val:   2,
+				Left:  &TreeNode{Val: 1},
+				Right: &TreeNode{Val: 3},
+			}},
+			want: true,
 		},
-	}
-	if isValidBST(tree3) != false {
-		t.Errorf("#3: expected false, got true")
-	}
-
-	tree4 := &TreeNode{
-		Val: 5,
-		Left: &TreeNode{
-			Val: 1,
+		{
+			name: "Test #4",
+			args: args{&TreeNode{
+				Val:  1,
+				Left: &TreeNode{Val: 1},
+			}},
+			want: false,
 		},
-		Right: &TreeNode{
-			Val: 4,
-			Left: &TreeNode{
-				Val: 3,
-			},
-			Right: &TreeNode{
-				Val: 6,
-			},
+		{
+			name: "Test #5",
+			args: args{&TreeNode{
+				Val:  5,
+				Left: &TreeNode{Val: 1},
+				Right: &TreeNode{
+					Val:   4,
+					Left:  &TreeNode{Val: 3},
+					Right: &TreeNode{Val: 6},
+				},
+			}},
+			want: false,
 		},
-	}
-	if isValidBST(tree4) != false {
-		t.Errorf("#4: expected false, got true")
-	}
-
-	tree5 := &TreeNode{
-		Val: 34,
-		Left: &TreeNode{
-			Val: -6,
-			Left: &TreeNode{
-				Val: -21,
-			},
+		{
+			name: "Test #6",
+			args: args{&TreeNode{
+				Val: 34,
+				Left: &TreeNode{
+					Val:  -6,
+					Left: &TreeNode{Val: -21},
+				},
+			}},
+			want: true,
 		},
 	}
-	if isValidBST(tree5) != true {
-		t.Errorf("#5: expected true, got false")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isValidBST(tt.args.node); got != tt.want {
+				t.Errorf("isValidBST() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
