@@ -1,31 +1,22 @@
 package problem91
 
-func computeDecodingsNumber(s string, cache map[string]int) int {
-	if s == "" {
-		return 1
-	}
-	if s[0] == '0' {
-		return 0
-	}
-
-	n, ok := cache[s]
-	if ok {
-		return n
-	}
-
-	res := computeDecodingsNumber(s[1:], cache)
-	if len(s) > 1 && (s[0] == '1' || (s[0] == '2' && s[1] <= '6')) {
-		res += computeDecodingsNumber(s[2:], cache)
-		delete(cache, s[2:])
-	}
-	cache[s] = res
-	return res
-}
-
 func numDecodings(s string) int {
-	if s == "" {
+	if s == "" || s[0] == '0' {
 		return 0
 	}
-	cache := make(map[string]int)
-	return computeDecodingsNumber(s, cache)
+	nums := make([]int, len(s))
+	nums[0] = 1
+	for i := 1; i < len(s); i++ {
+		if s[i] != '0' {
+			nums[i] = nums[i-1]
+		}
+		if s[i-1] == '1' || (s[i-1] == '2' && s[i] <= '6') {
+			if i >= 2 {
+				nums[i] += nums[i-2]
+			} else {
+				nums[i] += 1
+			}
+		}
+	}
+	return nums[len(s)-1]
 }
